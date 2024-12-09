@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "ES6",
+    "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": true,
+    "lib": ["ES6"],
+    "skipLibCheck": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "noImplicitAny": false,
+    "typeRoots": ["./global.d.ts", "./node_modules/@types"]
+  }
+}
