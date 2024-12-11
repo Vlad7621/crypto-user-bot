@@ -9,7 +9,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
     if(id === 7362664019) {
         const { text } = message;
         
-        const channel = await client.getEntity(-1002480801931);
+        const channel = await client.getEntity(-1002349778856);
         await sendMessage(client, channel, text);
     }
 }
