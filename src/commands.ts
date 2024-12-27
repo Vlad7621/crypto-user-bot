@@ -5,10 +5,16 @@ import { EntityLike, MessageIDLike, MessageLike } from 'telegram/define';
 export const sendMessage = async (
     client: TelegramClient,
     entity: EntityLike,
-    message: MessageLike
+    fromEntity: EntityLike,
+    message: MessageIDLike
 ): Promise<void> => {
-    await client.sendMessage(entity, {
-        message: message
+    // await client.sendMessage(entity, {
+    //     message: message,
+    // });
+    await client.forwardMessages(entity, {
+        fromPeer: fromEntity,
+        messages: message,
+        dropAuthor: true
     });
 };
 
