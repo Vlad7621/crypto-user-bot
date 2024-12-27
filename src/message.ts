@@ -1,16 +1,34 @@
 import { NewMessageEvent } from 'telegram/events';
 import { TelegramClient } from 'telegram';
-import { sendMessage} from './commands';
+import { sendMessage, sendPhoto } from './commands';
+import { MessageIDLike } from 'telegram/define';
+import { CHANNEL_ID, NEWS_BOT_ID } from './constans';
 
+
+let photos: MessageIDLike[] = [];
+let timeout: NodeJS.Timeout | undefined;
 async function eventMessage(event: NewMessageEvent, client: TelegramClient): Promise<void> {
     const { message } = event;
     const id = event.chatId?.valueOf();
 
-    if(id === 7362664019) {
-        const { text } = message;
-        
-        const channel = await client.getEntity(-1002349778856);
-        await sendMessage(client, channel, text);
+    if (id === NEWS_BOT_ID) {
+        const channel = await client.getEntity(CHANNEL_ID);
+
+        if (message.photo) {
+            const newsBot = await client.getInputEntity(NEWS_BOT_ID);
+
+            photos.push(message.id);
+            if (timeout) clearTimeout(timeout);
+            timeout = setTimeout(async () => {
+                await sendPhoto(client, channel, newsBot, photos);
+                photos = [];
+            }, 3000);
+
+        } else {
+            const { text } = message;
+
+            await sendMessage(client, channel, text);
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 import { TelegramClient } from 'telegram';
-import { EntityLike, MessageLike } from 'telegram/define';
+import { EntityLike, MessageIDLike, MessageLike } from 'telegram/define';
 
 
 export const sendMessage = async (
@@ -11,3 +11,16 @@ export const sendMessage = async (
         message: message
     });
 };
+
+export const sendPhoto = async (
+    client: TelegramClient, 
+    entity: EntityLike, 
+    fromEntity: EntityLike, 
+    photos: MessageIDLike[]
+): Promise<void> => {
+    await client.forwardMessages(entity, {
+        fromPeer: fromEntity,
+        messages: photos,
+        dropAuthor: true
+    });
+}
