@@ -15,7 +15,9 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
     if(!!replyMsg) return;
 
     if (id === NEWS_BOT_ID || id === COIN_CHANNEL_ID) {
-        const fromEntity = await client.getEntity(id);
+        const entity = id === NEWS_BOT_ID ? '@RawenNewsPro_bot' : id;
+        const fromEntity = await client.getEntity(entity);
+        
         const channel = await client.getEntity(CHANNEL_ID);
 
         if (message.photo) {
