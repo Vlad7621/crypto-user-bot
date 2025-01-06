@@ -6,7 +6,8 @@ import { CHANNEL_ID, DCA_CHANNEL_ID, NEWS_BOT_ID } from './constans';
 import { parseMessage } from './helpers/parse-message';
 import { validation } from './helpers/validation';
 import { formatMessage } from './helpers/format-message';
-
+import { db } from './database/firebase';
+import { firestore } from 'firebase-admin';
 
 let photos: MessageIDLike[] = [];
 let timeout: NodeJS.Timeout | undefined;
@@ -15,6 +16,31 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
     const id = event.chatId?.valueOf();
 
     const replyMsg = await message.getReplyMessage();
+
+    if (!!replyMsg && id === DCA_CHANNEL_ID) {
+        if (message.rawText === 'DCA closed by user') {
+            const doc = await db.doc(`dca_messages/${message.replyToMsgId}`).get();
+            const data = doc.data();
+            
+            if(!doc.exists) return;
+            
+            const channel = await client.getEntity(CHANNEL_ID);
+            // const [msg] = await client.getMessages(
+            //     channel, 
+            //     {
+            //         ids: data?.messageId
+            //     }
+            // );
+            // console.log(msg)
+
+            await client.sendMessage(channel, {
+                message: 'DCA closed by user',
+                replyTo: data?.messageId
+            });
+            await db.doc(`dca_messages/${message.replyToMsgId}`).delete();
+        }
+    }
+
     if (!id || !!replyMsg) return;
 
     const entity = id === NEWS_BOT_ID ? '@RawenNewsPro_bot' : id;
@@ -40,15 +66,21 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
                 parsedMessage.futures
             );
 
-            if(isValid) {
+            if (isValid) {
                 const channel = await client.getEntity(-1002167526471);
                 try {
-                    await client.sendMessage(channel, {
+                    const msg = await client.sendMessage(channel, {
                         message: formatMessage(parsedMessage),
                         parseMode: 'html',
                         linkPreview: false
                     });
-                } catch(err) {
+
+                    const createdAt = firestore.FieldValue.serverTimestamp();
+                    await db.doc(`dca_messages/${message.id}`).create({
+                        messageId: msg.id,
+                        // createdAt
+                    });
+                } catch (err) {
                     console.log(err)
                 }
             }

@@ -18,6 +18,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "firebase-admin": "^12.7.0",
     "telegram": "^2.26.16"
   }
 }
