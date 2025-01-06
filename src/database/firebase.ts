@@ -1,9 +1,12 @@
 import { initializeApp, cert, ServiceAccount } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
-import credential from '../../credential.json';
 
 const app = initializeApp({
-   credential: cert(credential as ServiceAccount)
+   credential: cert({
+      clientEmail: 'firebase-adminsdk-8vds8@user-bot-81daf.iam.gserviceaccount.com',
+      projectId: 'user-bot-81daf',
+      privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC2ZvsCPq9y0rA1\nux8+m5VALsUyVztsYWPRvIQK7YisKHcfOcmOn9V5FvcgifVmD5gP+lKD4EBkWvCF\nOvon2yf2Or35mCd7Vg1zVij331/3VAEkzQXrDyJdpLetPBSRiE2N12LNi7k5Myp8\n6BL70SdWnbr+TlPq+TxigdpFh/AweOwUQh3vKf0AMN7ULqzFBFCJ0tSOeYdL1iuk\nE0PfwnAfmfrk6XE/5nwEEnguJlopwFusibytPpxayr2J0pfvjaZVxMjHvlnpqcvR\nh2/kyLpoU27IAKjedXhGHGQNc5oAG0HKYlg5mtc6SAPtkdKyeEOwgepQv4RYq0y1\nR3PAGrBBAgMBAAECggEAB1EZC2Vs1SAO+fohiM8lvPSeAUTfCRwHV0k8NGeutms2\ny2hJGyEdvNUB65/6bvzmpmjDSRokiHIJGRW9JalPUHuu6wrNC0/vy7CJMFeZSlBS\nwxa8q0nI4N/uj0gsR2Hj7IdB5clk+slVkGZLJqdPRZSfr5EATETHBOjnvXzJvYP2\n0LrzH6NTis3nkbZykHevaerdbWpFs8hbmh6owEXk2PdCAyniWtb1sDcPr8q4B4BB\nGGInjOOUs9osSB9yhdkABkDkzPNIsNLoBqZsq0PIbKknCzeyWh4sv6Es3XBZNOkA\nJfK2OH/oyhCFuBAYlRaq8T9ILSnzB2ol5842xZF8jQKBgQDxhcHL0xweYCHfPtbi\n3U+tH4HXPLmCqxwAHrke48nHjQjJm79AH5YIv37tZO8ZIqTMwg0WNvVtIcBfGhwe\n2HdoSTxLY4/KxTJBVDCRtrMYOAP0aME/PCibzLCsFNtv2Xc6ztlJ6p6l3Kk8Gwfj\nt79Bksd2htHTAx3Mu0SdBsACtQKBgQDBVgEHXwPQYQcEfVRSLan8qSvhC09Kf+vJ\nl79ZfGpq1Pw62Dtm2WiGPVqohmxiH4e4Xpxen/vKxnh3czhvTrASgyXt61XDvZ4g\nJ6arxKkkwSMki6lOE+PBDpRh/8NtV13aLV3BNGmYA2jF1YbgVI3qTqfJk5ATsyHq\nBr1kai0y3QKBgQDK3/obxicWdNW++r/yLMhiudaM/9ssIaMRjr0db2XtE1DQWN1b\ndazHiGOL8X7N9EXOISpxAJVDqFg5CmuYlWgn12yoPudoAiDms1tg6sChlVvtD5lU\nDqplxJia06JH37nBUkM/Ta8Zz7LwZBxKcexbnnmh3DmgMDv131ARPrxHCQKBgHWS\nxtdjud8MUocxbIj5Sinj+1JFXXfx6UNUbEKQPeswER/8BcvbJQyV3T8lWF4nzJKb\nvr5wzmAXaIVD5asTEFKBvRw+BI8gDjyBwIMu+qnmZmfAIzrfL59lLWmXb5JcEjAv\nbJelNx4B3MKKwxZDdXZrVPBqM7E3O8WlSaH6S/hlAoGBAJDrwSDkN7uUKVIn8Vj2\nTn57/egH3VKVn1NskQgTeGUjZHm6+YevZvBjLGEMXz0ON7T6TzSsXUg3fhTviXGC\nsr8JO6hPx2O4nLUG8HSOs2YWhFkGZyWPEfH3e4/fETQN7hpC70PJdZvJU5GF8+F+\nifRIidTSRLfAf6CLu8eoEfsw\n-----END PRIVATE KEY-----\n'
+   })
 });
 
 export const db = getFirestore(app);
