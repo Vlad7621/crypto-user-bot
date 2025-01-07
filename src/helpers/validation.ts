@@ -24,7 +24,7 @@ export const validationEta = (
 ) => {
    if (!eta) return false;
 
-   const match = eta.match(/(?:(\d+)\s*hours?)?(?:\s*,?\s*(\d+)\s*minutes?)?/);
+   const match = eta.match(/(?:(\d+)\s*h(?:ours?|s)?)?(?:\s*,?\s*(\d+)\s*m(?:inutes?|ins?)?)?/);
 
    if (match) {
       const hours = match[1] ? parseInt(match[1]) : 0;
@@ -46,7 +46,7 @@ export const validation = (
 ) => {
    const isValidFrequency = validationFrequency(frequency);
 
-   if(isValidFrequency) return true;
+   if(isValidFrequency && !!futures) return true;
 
    const isValidPotential = parseFloat(potential || '0') > 10;
    const isValidEta = validationEta(eta);
