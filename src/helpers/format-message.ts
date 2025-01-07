@@ -54,7 +54,7 @@ ${!!futures ? `\n🔗: ${futures}\n` : ''}
 ⏰: ${convertToUkrainianPeriod(period)}
 <pre><code class="language-remarks">${remarks}</code></pre>
 
-<a href="https://t.me/kitchendao">Кухня</a> | <a href="https://t.me/+4Ab6lgU09jo4NmFi">Чат</a>
+<a href="https://t.me/kitchendao">Кухня</a> | <a href="https://t.me/kitchenchad">Адмін</a>
 `
 }
 
