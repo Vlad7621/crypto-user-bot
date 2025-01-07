@@ -23,7 +23,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
             const data = doc.data();
             
             if(!doc.exists) return;
-            const channel = await client.getEntity(-1002167526471);
+            const channel = await client.getEntity(-1002478844195);
             // const [msg] = await client.getMessages(
             //     channel, 
             //     {
@@ -66,7 +66,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
             );
 
             if (isValid) {
-                const channel = await client.getEntity(-1002167526471);
+                const channel = await client.getEntity(-1002478844195);
                 try {
                     const msg = await client.sendMessage(channel, {
                         message: formatMessage(parsedMessage),

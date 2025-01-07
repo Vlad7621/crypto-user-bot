@@ -31,15 +31,30 @@ export const formatMessage = (opt: any) => {
          .replace(/\bevery\b/gi, 'кожні');
    };
 
+   const convertToUkrainianPeriod = (period: string) => {
+      const [start, end] = period.split(' - ');
+      const convertToKyivTime = (gmtString: string) => {
+         const date = new Date(gmtString);
+         return date.toLocaleString("uk-UA", { timeZone: "Europe/Kiev" });
+      };
+
+      const startTime = convertToKyivTime(start);
+      const endTime = convertToKyivTime(end);
+
+      return `${startTime} - ${endTime}`;
+   }
+
    return `
 ${updatedFirstLine}
 
-<b>Frequency</b>: ${translateFrequencyToUkrainian(frequency)}
+<b>Кількість</b>: ${translateFrequencyToUkrainian(frequency)}
 <b>Час</b>: ${translateTimeToUkrainian(eta)}
 <b>Потенційна зміна ціни</b>: ${potential}
 ${!!futures ? `\n🔗: ${futures}\n` : ''}
-⏰: ${period}
+⏰: ${convertToUkrainianPeriod(period)}
 <pre><code class="language-remarks">${remarks}</code></pre>
+
+<i><a href="https://t.me/kitchendao">Кухня</a> | <a href="https://t.me/kitchendao">Чат</a></i>
 `
 }
 
