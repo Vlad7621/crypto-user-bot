@@ -22,8 +22,9 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
             const doc = await db.doc(`dca_messages/${message.replyToMsgId}`).get();
             const data = doc.data();
             
+            console.log(data)
+            console.log(doc.exists)
             if(!doc.exists) return;
-            console.log(111111111)
             const channel = await client.getEntity(CHANNEL_ID);
             // const [msg] = await client.getMessages(
             //     channel, 
