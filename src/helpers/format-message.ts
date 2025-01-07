@@ -45,7 +45,7 @@ export const formatMessage = (opt: any) => {
    }
 
    return `
-${updatedFirstLine}
+<b>${updatedFirstLine}</b>
 
 <b>Кількість</b>: ${translateFrequencyToUkrainian(frequency)}
 <b>Час</b>: ${translateTimeToUkrainian(eta)}
@@ -54,7 +54,7 @@ ${!!futures ? `\n🔗: ${futures}\n` : ''}
 ⏰: ${convertToUkrainianPeriod(period)}
 <pre><code class="language-remarks">${remarks}</code></pre>
 
-<i><a href="https://t.me/kitchendao">Кухня</a> | <a href="https://t.me/kitchendao">Чат</a></i>
+<a href="https://t.me/kitchendao">Кухня</a> | <a href="https://t.me/+4Ab6lgU09jo4NmFi">Чат</a>
 `
 }
 
