@@ -45,13 +45,11 @@ export const validation = (
    futures: string | null,
 ) => {
    const isValidFrequency = validationFrequency(frequency);
-
-   if(isValidFrequency && !!futures) return true;
-
-   const isValidPotential = parseFloat(potential || '0') > 10;
+ 
+   // const isValidPotential = parseFloat(potential || '0') > 10;
    const isValidEta = validationEta(eta);
 
-   if(isValidPotential && isValidEta && !!futures) {
+   if(isValidFrequency && isValidEta && !!futures) {
       return true;
    }
 
