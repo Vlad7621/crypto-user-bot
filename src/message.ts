@@ -7,7 +7,7 @@ import { parseMessage } from './helpers/parse-message';
 import { validation } from './helpers/validation';
 import { formatMessage } from './helpers/format-message';
 import { db } from './database/firebase';
-import { firestore } from 'firebase-admin';
+// import { firestore } from 'firebase-admin';
 
 let photos: MessageIDLike[] = [];
 let timeout: NodeJS.Timeout | undefined;
@@ -18,12 +18,12 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
     const replyMsg = await message.getReplyMessage();
 
     if (!!replyMsg && id === DCA_CHANNEL_ID) {
-        if (message.rawText === 'DCA closed by user') {
+        // if (message.rawText === 'DCA closed by user') {
             const doc = await db.doc(`dca_messages/${message.replyToMsgId}`).get();
             const data = doc.data();
             
             if(!doc.exists) return;
-            
+            console.log(111111111)
             const channel = await client.getEntity(CHANNEL_ID);
             // const [msg] = await client.getMessages(
             //     channel, 
@@ -38,7 +38,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
                 replyTo: data?.messageId
             });
             await db.doc(`dca_messages/${message.replyToMsgId}`).delete();
-        }
+        // }
     }
 
     if (!id || !!replyMsg) return;
@@ -75,10 +75,8 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
                         linkPreview: false
                     });
 
-                    const createdAt = firestore.FieldValue.serverTimestamp();
                     await db.doc(`dca_messages/${message.id}`).create({
-                        messageId: msg.id,
-                        // createdAt
+                        messageId: msg.id
                     });
                 } catch (err) {
                     console.log(err)
