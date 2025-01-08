@@ -68,8 +68,9 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
             if (isValid) {
                 const channel = await client.getEntity(-1002478844195);
                 try {
+                    const buttons = message.buttons?.[0]?.slice(0, 3);
                     const msg = await client.sendMessage(channel, {
-                        message: formatMessage(parsedMessage),
+                        message: formatMessage(parsedMessage, buttons),
                         parseMode: 'html',
                         linkPreview: false
                     });

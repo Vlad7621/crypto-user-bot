@@ -1,4 +1,4 @@
-export const formatMessage = (opt: any) => {
+export const formatMessage = (opt: any, buttons?: any[]) => {
    const {
       firstLine,
       frequency,
@@ -44,6 +44,10 @@ export const formatMessage = (opt: any) => {
       return `${startTime} - ${endTime}`;
    }
 
+   const btns = buttons?.map(({ button }) =>
+      `<b><a href="${button.url}">${button.text.replace(/DS/, 'Chart')}</a></b>`
+   );
+
    return `
 <b>${updatedFirstLine}</b>
 
@@ -54,7 +58,7 @@ ${!!futures ? `\n🔗: ${futures}\n` : ''}
 ⏰: ${convertToUkrainianPeriod(period)}
 <pre><code class="language-remarks">${remarks}</code></pre>
 
-<a href="https://t.me/kitchendao">Кухня</a> | <a href="https://t.me/kitchenchad">Адмін</a>
+${btns?.join(' | ')}
 `
 }
 
