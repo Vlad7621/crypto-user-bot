@@ -12,6 +12,8 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
       user,
       futures,
       period,
+      minBuyPrice,
+      maxBuyPrice,
       remarks
    } = opt;
 
@@ -54,7 +56,8 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
 <b>Кількість</b>: ${translateFrequencyToUkrainian(frequency)}
 <b>Час</b>: ${translateTimeToUkrainian(eta)}
 <b>Потенційна зміна ціни</b>: ${potential}
-${!!futures ? `\n🔗: ${futures}\n` : ''}
+${!!minBuyPrice ? `\n<b>Мінімальна ціна покупки</b>: ${minBuyPrice.replace(/per/, 'за')}\n` : '\n'}${!!maxBuyPrice ? `<b>Максимальна ціна покупки</b>: ${maxBuyPrice.replace(/per/, 'за')}\n` : ''}
+${!!futures ? `🔗: ${futures}\n` : ''}
 ⏰: ${convertToUkrainianPeriod(period)}
 <pre><code class="language-remarks">${remarks}</code></pre>
 
