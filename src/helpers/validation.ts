@@ -9,7 +9,7 @@ export const validationFrequency = (
       const number = parseFloat(match[1].replace(/,/g, ''));
       const suffix = match[2] || '';
 
-      if (number > 5 && !!suffix) {
+      if (number > 4 && !!suffix) {
          return true
       }
 
