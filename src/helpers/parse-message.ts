@@ -43,6 +43,8 @@ export const parseMessage = (html: string) => {
       period: extractValue(/<strong>Period:<\/strong>\s+(.*)$/m),
       minBuyPrice: extractValue(/<strong>Min buy price:<\/strong>\s+(.*)$/m),
       maxBuyPrice: extractValue(/<strong>Max buy price:<\/strong>\s+(.*)$/m),
+      minSellPrice: extractValue(/<strong>Min sell price:<\/strong>\s+(.*)$/m),
+      maxSellPrice: extractValue(/<strong>Max sell price:<\/strong>\s+(.*)$/m),
       remarks: extractValue(/<pre><code class="language-remarks">([\s\S]+?)<\/code><\/pre>/),
    };
 };

@@ -14,6 +14,8 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
       period,
       minBuyPrice,
       maxBuyPrice,
+      minSellPrice,
+      maxSellPrice,
       remarks
    } = opt;
 
@@ -50,13 +52,33 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
       `<b><a href="${button.url}">${button.text.replace(/DS/, 'Chart')}</a></b>`
    );
 
+   const price = (() => {
+      let res = '';
+
+      if(!!minBuyPrice) {
+         res += `<b>Мінімальна ціна покупки</b>: ${minBuyPrice.replace(/per/, 'за')}\n`;
+      }
+      if(!!maxBuyPrice) {
+         res += `<b>Максимальна ціна покупки</b>: ${maxBuyPrice.replace(/per/, 'за')}\n`;
+      }
+
+      if(!!minSellPrice) {
+         res += `<b>Мінімальна ціна продажу</b>: ${minSellPrice.replace(/per/, 'за')}\n`;
+      }
+      if(!!maxSellPrice) {
+         res += `<b>Максимальна ціна продажу</b>: ${maxSellPrice.replace(/per/, 'за')}\n`;
+      }
+      
+      return !!res ? `\n${res}` : '';
+   })();
+
    return `
 <b>${updatedFirstLine}</b>
 
 <b>Кількість</b>: ${translateFrequencyToUkrainian(frequency)}
 <b>Час</b>: ${translateTimeToUkrainian(eta)}
 <b>Потенційна зміна ціни</b>: ${potential}
-${!!minBuyPrice ? `\n<b>Мінімальна ціна покупки</b>: ${minBuyPrice.replace(/per/, 'за')}\n` : '\n'}${!!maxBuyPrice ? `<b>Максимальна ціна покупки</b>: ${maxBuyPrice.replace(/per/, 'за')}\n` : ''}
+${price}
 ${!!futures ? `🔗: ${futures}\n` : ''}
 ⏰: ${convertToUkrainianPeriod(period)}
 <pre><code class="language-remarks">${remarks}</code></pre>
