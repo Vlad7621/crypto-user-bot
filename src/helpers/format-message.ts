@@ -3,6 +3,7 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
       firstLine,
       frequency,
       eta,
+      scores,
       potential,
       mcap,
       liquidity,
@@ -25,14 +26,26 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
 
    const translateTimeToUkrainian = (eta: string) => {
       return eta
-         .replace(/\b(\d+)\s*h(?:ours?|s)?\b/gi, '$1 год')
-         .replace(/\b(\d+)\s*m(?:inutes?|ins?)\b/gi, '$1 хв');
+         .replace(/\b(\d+)\s?h(?:ours?|s)?\b/gi, '$1 год')
+         .replace(/\b(\d+)\s?m(?:inutes?|ins?)?\b/gi, '$1 хв');
    };
 
    const translateFrequencyToUkrainian = (text: string): string => {
+      const getCycleWord = (count: number): string => {
+         if (count % 10 === 1 && count % 100 !== 11) return 'цикл';
+         if (
+            [2, 3, 4].includes(count % 10) &&
+            ![12, 13, 14].includes(count % 100)
+         ) {
+            return 'цикли';
+         }
+         return 'циклів';
+      };
       return text
          .replace(/\b(\d+)\s*seconds?\b/gi, '$1 секунд')
-         .replace(/\bevery\b/gi, 'кожні');
+         .replace(/\bevery\b/gi, 'кожні')
+         .replace(/\((\d+)\s*cycles?\)/gi, (_, count) => `(${count} ${getCycleWord(+count)})`)
+         .replace(/\bcycles?\b/gi, 'цикли');
    };
 
    const convertToUkrainianPeriod = (period: string) => {
@@ -55,20 +68,20 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
    const price = (() => {
       let res = '';
 
-      if(!!minBuyPrice) {
+      if (!!minBuyPrice) {
          res += `<b>Мінімальна ціна покупки</b>: ${minBuyPrice.replace(/per/, 'за')}\n`;
       }
-      if(!!maxBuyPrice) {
+      if (!!maxBuyPrice) {
          res += `<b>Максимальна ціна покупки</b>: ${maxBuyPrice.replace(/per/, 'за')}\n`;
       }
 
-      if(!!minSellPrice) {
+      if (!!minSellPrice) {
          res += `<b>Мінімальна ціна продажу</b>: ${minSellPrice.replace(/per/, 'за')}\n`;
       }
-      if(!!maxSellPrice) {
+      if (!!maxSellPrice) {
          res += `<b>Максимальна ціна продажу</b>: ${maxSellPrice.replace(/per/, 'за')}\n`;
       }
-      
+
       return !!res ? `\n${res}` : '';
    })();
 
@@ -77,7 +90,8 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
 
 <b>Кількість</b>: ${translateFrequencyToUkrainian(frequency)}
 <b>Час</b>: ${translateTimeToUkrainian(eta)}
-<b>Потенційна зміна ціни</b>: ${potential}
+<b>Оцінка</b>: ${scores}
+<b>Потенційна зміна ціни</b>: ${potential.replace(/per cycle/, 'за цикл')}
 ${price}
 ${!!futures ? `🔗: ${futures}\n` : ''}
 ⏰: ${convertToUkrainianPeriod(period)}

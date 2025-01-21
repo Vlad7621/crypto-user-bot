@@ -32,6 +32,7 @@ export const parseMessage = (html: string) => {
       firstLine: extractValue(/^([^\n]+)/),
       frequency: extractValue(/<strong>Frequency:<\/strong>\s+(.*)$/m),
       eta: extractValue(/<strong>ETA:<\/strong>\s+(.*)$/m),
+      scores: extractValue(/<strong>Scores:\s*<\/strong>\s*(.*)/m),
       potential: extractValue(/<strong>Potential price change:<\/strong>\s+(.*)$/m),
       mcap: extractValue(/<strong>MCAP:<\/strong>\s+(.*)$/m),
       liquidity: extractValue(/<strong>Liquidity:<\/strong>\s+(.*)$/m),
