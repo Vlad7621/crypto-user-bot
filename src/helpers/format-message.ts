@@ -63,7 +63,8 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
 
    const btns = buttons?.map(({ button }) =>
       `<b><a href="${button.url}">${button.text.replace(/DS/, 'Chart')}</a></b>`
-   );
+   ) || [];
+   btns.push(`<b><a href="https://t.me/%2Bh5cQzoLliUs2YTVi">Чат</a></b>`);
 
    const price = (() => {
       let res = '';
