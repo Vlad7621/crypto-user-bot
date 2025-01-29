@@ -5,6 +5,7 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
       eta,
       scores,
       potential,
+      range,
       mcap,
       liquidity,
       holders,
@@ -92,7 +93,9 @@ export const formatMessage = (opt: any, buttons?: any[]) => {
 <b>Кількість</b>: ${translateFrequencyToUkrainian(frequency)}
 <b>Час</b>: ${translateTimeToUkrainian(eta)}
 <b>Оцінка</b>: ${scores}
-<b>Потенційна зміна ціни</b>: ${potential.replace(/per cycle/, 'за цикл')}
+<b>Потенційна зміна ціни</b>: ${potential.replace(/per cycle/, 'за цикл')}${
+   !!range ? `\n<b>Діапазон</b>: ${range}` : ''}
+<b>Виконавець</b>: #${user.slice(-10)}
 ${price}
 ${!!futures ? `🔗: ${futures}\n` : ''}
 ⏰: ${convertToUkrainianPeriod(period)}
