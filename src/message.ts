@@ -35,7 +35,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
             await client.sendMessage(channel, {
                 message: 'DCA закрито користувачем',
                 replyTo: data?.messageId,
-                commentTo: 27061
+                // commentTo: 27061
             });
             await db.doc(`dca_messages/${message.replyToMsgId}`).delete();
         // }
