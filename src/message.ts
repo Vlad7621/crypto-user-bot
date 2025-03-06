@@ -23,7 +23,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
             const data = doc.data();
             
             if(!doc.exists) return;
-            const channel = await client.getEntity(-1002263046686);
+            const channel = await client.getEntity(-1002478844195);
             // const [msg] = await client.getMessages(
             //     channel, 
             //     {
@@ -34,8 +34,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
 
             await client.sendMessage(channel, {
                 message: 'DCA закрито користувачем',
-                replyTo: data?.messageId,
-                // commentTo: 27061
+                replyTo: data?.messageId
             });
             await db.doc(`dca_messages/${message.replyToMsgId}`).delete();
         // }
@@ -67,14 +66,13 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
             );
 
             if (isValid) {
-                const channel = await client.getEntity(-1002263046686);
+                const channel = await client.getEntity(-1002478844195);
                 try {
                     const buttons = message.buttons?.[0]?.slice(0, 3);
                     const msg = await client.sendMessage(channel, {
                         message: formatMessage(parsedMessage, buttons),
                         parseMode: 'html',
-                        linkPreview: false,
-                        commentTo: 27061
+                        linkPreview: false
                     });
 
                     await db.doc(`dca_messages/${message.id}`).create({
