@@ -29,7 +29,7 @@ export const parseMessage = (html: string) => {
    };
 
    return {
-      firstLine: extractValue(/^([^\n]+)/),
+      firstLine: extractValue(/^(\$[^\n]+?(?:🟩|🟥))$/m),
       frequency: extractValue(/<strong>Frequency:<\/strong>\s+(.*)$/m),
       eta: extractValue(/<strong>ETA:<\/strong>\s+(.*)$/m),
       scores: extractValue(/<strong>Scores:\s*<\/strong>\s*(.*)/m),

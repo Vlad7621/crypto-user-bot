@@ -59,6 +59,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
             const parsedMessage = parseMessage(message.text);
 
             const isValid = validation(
+                parsedMessage.firstLine,
                 parsedMessage.frequency,
                 parsedMessage.potential,
                 parsedMessage.eta,
