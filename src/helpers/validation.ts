@@ -9,7 +9,7 @@ export const validationTotalVolume = (
       const number = parseFloat(match[1].replace(/,/g, ''));
       const suffix = match[2] || '';
 
-      if ((number > 500 && suffix === 'K') || suffix === 'M' || suffix === 'B') {
+      if ((number > 100 && suffix === 'K') || suffix === 'M' || suffix === 'B') {
          return true;
       }
 
@@ -51,7 +51,7 @@ export const validationEta = (
       const hours = match[1] ? parseInt(match[1]) : 0;
       const minutes = match[2] ? parseInt(match[2]) : 0;
 
-      if (hours > 0 || minutes >= 9) {
+      if (hours > 0 || minutes >= 4) {
          return true;
       }
    }
