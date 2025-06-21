@@ -11,7 +11,7 @@ import { COIN_CHANNEL_ID, DCA_CHANNEL_ID, NEWS_BOT_ID } from './constans';
     client.addEventHandler(async event =>
         await eventMessage(event, client), new NewMessage({
             chats: [
-                NEWS_BOT_ID, 
+                // NEWS_BOT_ID, 
                 COIN_CHANNEL_ID,
                 DCA_CHANNEL_ID
             ]
