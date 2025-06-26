@@ -45,15 +45,15 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
     // const entity = id === NEWS_BOT_ID ? '@RawenNewsPro_bot' : id;
     const fromEntity = await client.getEntity(id);
 
-    const channel = await client.getEntity(CHANNEL_ID);
+    // const channel = await client.getEntity(CHANNEL_ID);
 
     if (message.photo) {
-        photos.push(message.id);
-        if (timeout) clearTimeout(timeout);
-        timeout = setTimeout(async () => {
-            await sendPhoto(client, channel, fromEntity, photos);
-            photos = [];
-        }, 3000);
+        // photos.push(message.id);
+        // if (timeout) clearTimeout(timeout);
+        // timeout = setTimeout(async () => {
+        //     await sendPhoto(client, channel, fromEntity, photos);
+        //     photos = [];
+        // }, 3000);
     } else {
         if (id === DCA_CHANNEL_ID) {
             const parsedMessage = parseMessage(message.text);
@@ -84,7 +84,7 @@ async function eventMessage(event: NewMessageEvent, client: TelegramClient): Pro
                 }
             }
         } else {
-            await sendMessage(client, channel, fromEntity, message);
+            // await sendMessage(client, channel, fromEntity, message);
         }
     }
 }
